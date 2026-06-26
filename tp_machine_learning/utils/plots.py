@@ -46,3 +46,31 @@ def save_simple_regression_plot(x_test, y_test, y_pred, feature_name, output_fil
     plt.close()
 
     return output_path
+
+
+def save_real_vs_predicted_plot(y_test, y_pred, title, output_filename):
+    """Guarda un grafico comparando valores reales contra valores predichos."""
+    GRAPHS_DIR.mkdir(parents=True, exist_ok=True)
+    output_path = GRAPHS_DIR / output_filename
+
+    min_value = min(y_test.min(), y_pred.min())
+    max_value = max(y_test.max(), y_pred.max())
+
+    plt.figure(figsize=(8, 5))
+    plt.scatter(y_test, y_pred, color="steelblue", alpha=0.8)
+    plt.plot(
+        [min_value, max_value],
+        [min_value, max_value],
+        color="darkred",
+        linewidth=2,
+        label="Prediccion perfecta",
+    )
+    plt.title(title)
+    plt.xlabel("Valores reales")
+    plt.ylabel("Valores predichos")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(output_path)
+    plt.close()
+
+    return output_path

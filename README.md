@@ -84,6 +84,8 @@ Ya se implemento:
 - Opcion `0` para salir.
 - Validacion de opciones invalidas.
 - Primer algoritmo completo: regresion lineal simple con dataset `Diabetes`.
+- Segundo algoritmo completo: regresion lineal multiple con dataset `Diabetes`.
+- Vista previa del dataset en consola antes de entrenar cada modelo.
 - Calculo de metricas de regresion:
   - MAE
   - MSE
@@ -106,10 +108,11 @@ Ejecutar el menu:
 python tp_machine_learning/main.py
 ```
 
-Luego elegir una opcion del menu. Por ahora, la opcion completa es:
+Luego elegir una opcion del menu. Por ahora, las opciones completas son:
 
 ```text
 1. Regresion lineal simple
+2. Regresion lineal multiple
 ```
 
 ## Etapas de desarrollo

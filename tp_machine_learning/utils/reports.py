@@ -21,6 +21,8 @@ def save_algorithm_report(
     metrics,
     graph_path,
     output_filename,
+    dataset_info=None,
+    interpretation=None,
 ):
     """Guarda un informe simple en texto plano."""
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -33,8 +35,21 @@ def save_algorithm_report(
         "Motivo de eleccion del dataset:",
         dataset_reason,
         "",
-        "Metricas obtenidas:",
     ]
+
+    if dataset_info:
+        lines.extend(
+            [
+                "Datos utilizados:",
+                f"- Filas: {dataset_info['rows']}",
+                f"- Columnas: {dataset_info['columns']}",
+                f"- Variables de entrada: {', '.join(dataset_info['features'])}",
+                f"- Variable objetivo: {dataset_info['target_name']}",
+                "",
+            ]
+        )
+
+    lines.append("Metricas obtenidas:")
 
     for metric_name, metric_value in metrics.items():
         description = METRIC_DESCRIPTIONS.get(metric_name, "Metrica de evaluacion del modelo.")
@@ -47,7 +62,8 @@ def save_algorithm_report(
             f"Grafico generado: {graph_path}",
             "",
             "Interpretacion breve:",
-            (
+            interpretation
+            or (
                 "El modelo intenta predecir la progresion de la enfermedad "
                 "a partir de una sola variable. Al usar una unica variable, "
                 "el resultado sirve como primera aproximacion y no se espera "
