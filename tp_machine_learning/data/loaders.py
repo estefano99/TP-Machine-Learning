@@ -52,8 +52,8 @@ def load_diabetes_multiple_regression():
 
 # sample_size=5000 limita a 5000 filas para que el entrenamiento sea mas rapido, ya que SVR es costoso computacionalmente
 # random_state=42 siempre la misma muestra
-def load_california_housing_svr(sample_size=5000, random_state=42):
-    """Carga una muestra reproducible de California Housing para SVR."""
+def load_california_housing_sample(sample_size=5000, random_state=42):
+    """Carga una muestra reproducible del dataset California Housing."""
     california = fetch_california_housing(as_frame=True)
     target_name = california.target.name
 

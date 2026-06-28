@@ -116,7 +116,7 @@ Algoritmos de regresion:
 - [x] Regresion lineal multiple.
 - [x] Regresion polinomial.
 - [x] SVR, regresion con vectores de soporte.
-- [ ] Arbol de decision para regresion.
+- [x] Arbol de decision para regresion.
 - [ ] Bosque aleatorio para regresion.
 
 Algoritmos de clasificacion:
@@ -138,6 +138,7 @@ Ya implementado:
 - Grafico de valores reales vs valores predichos para regresion multiple.
 - Grafico de curva para regresion polinomial.
 - Grafico de valores reales vs valores predichos para SVR.
+- Grafico de valores reales vs valores predichos para arbol de decision.
 - Informes con:
   - Algoritmo.
   - Dataset.
@@ -155,6 +156,7 @@ Informes manuales generados:
 - `manual_algoritmos/02_regresion_lineal_multiple.md`.
 - `manual_algoritmos/03_regresion_polinomial.md`.
 - `manual_algoritmos/04_svr_regresion.md`.
+- `manual_algoritmos/05_arbol_decision_regresion.md`.
 
 Pendiente:
 
@@ -231,16 +233,22 @@ Decisiones tecnicas:
 
 ### Arbol de decision para regresion
 
-Estado: pendiente.
+Estado: implementado.
 
-Dataset propuesto:
+Dataset:
 
-- `Diabetes` o `California Housing`.
+- `California Housing`, usando la misma muestra fija de 5.000 registros que SVR.
 
-Decision sugerida:
+Motivo:
 
-- Usar `Diabetes` si queremos mantener todo rapido y simple.
-- Usar `California Housing` si queremos mas variedad de dataset.
+- Permite comparar el arbol y SVR sobre exactamente los mismos datos.
+- Sus variables numericas permiten crear reglas de decision para predecir valores continuos.
+
+Decisiones tecnicas:
+
+- Se usa `DecisionTreeRegressor(max_depth=5, random_state=42)`.
+- La profundidad se limita para reducir el sobreajuste.
+- No se aplica escalado porque el arbol evalua cortes dentro de cada variable.
 
 ### Bosque aleatorio para regresion
 
@@ -355,20 +363,21 @@ Opciones completas:
 - `2. Regresion lineal multiple`.
 - `3. Regresion polinomial`.
 - `4. SVR - Regresion con vectores de soporte`.
+- `5. Arbol de decision - Regresion`.
 
 Opciones pendientes:
 
-- `5` a `12`.
+- `6` a `12`.
 
 ## Proxima tarea recomendada
 
-Implementar `5. Arbol de decision - Regresion`.
+Implementar `6. Bosque aleatorio - Regresion`.
 
 La implementacion deberia:
 
-- Definir si se usara `Diabetes` o la misma muestra de `California Housing`.
-- Usar `DecisionTreeRegressor` con `random_state=42`.
+- Reutilizar la misma muestra de `California Housing` para comparar resultados.
+- Usar `RandomForestRegressor` con `random_state=42`.
 - Calcular las mismas metricas de regresion.
 - Generar grafico de valores reales vs predichos.
 - Guardar informe con interpretacion especifica.
-- Crear informe manual en `manual_algoritmos/05_arbol_decision_regresion.md`.
+- Crear informe manual en `manual_algoritmos/06_bosque_aleatorio_regresion.md`.

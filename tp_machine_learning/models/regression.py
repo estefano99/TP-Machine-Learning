@@ -6,9 +6,10 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVR
+from sklearn.tree import DecisionTreeRegressor
 
 from data.loaders import (
-    load_california_housing_svr,
+    load_california_housing_sample,
     load_diabetes_multiple_regression,
     load_diabetes_simple_regression,
 )
@@ -217,7 +218,7 @@ def run_polynomial_regression():
 
 def run_svr_regression():
     """Ejecuta SVR con una muestra del dataset California Housing."""
-    dataset = load_california_housing_svr(sample_size=5000, random_state=42)
+    dataset = load_california_housing_sample(sample_size=5000, random_state=42)
     x = dataset["x"]
     y = dataset["y"]
 
@@ -283,6 +284,78 @@ def run_svr_regression():
             "el valor medio de las viviendas. SVR con kernel rbf puede "
             "representar relaciones no lineales, y el escalado evita que "
             "las variables con valores numericos mayores dominen el modelo."
+        ),
+    )
+
+    print(f"\nGrafico guardado en: {graph_path}")
+    print(f"Informe guardado en: {report_path}")
+
+
+def run_decision_tree_regression():
+    """Ejecuta un arbol de decision con California Housing."""
+    dataset = load_california_housing_sample(sample_size=5000, random_state=42)
+    x = dataset["x"]
+    y = dataset["y"]
+    max_depth = 5
+
+    x_train, x_test, y_train, y_test = train_test_split(
+        x,
+        y,
+        test_size=0.2,
+        random_state=42,
+    )
+
+    model = DecisionTreeRegressor(
+        max_depth=max_depth,
+        random_state=42,
+    )
+    model.fit(x_train, y_train)
+
+    y_pred = model.predict(x_test)
+    metrics = calculate_regression_metrics(y_test, y_pred)
+
+    print("\nResultados - Arbol de decision para regresion")
+    print(f"Dataset: {dataset['dataset_name']}")
+    print(f"Variable objetivo: {dataset['target_name']}")
+    print(
+        "Muestra: "
+        f"{dataset['sample_size']} registros "
+        f"(random_state={dataset['sample_random_state']})"
+    )
+    print(f"Profundidad maxima del arbol: {max_depth}")
+    print_dataset_preview(dataset)
+    print_regression_metrics(metrics)
+
+    graph_path = save_real_vs_predicted_plot(
+        y_test=y_test,
+        y_pred=y_pred,
+        title="Arbol de decision - California Housing",
+        output_filename="arbol_decision_regresion_california_housing.png",
+    )
+
+    report_path = save_algorithm_report(
+        algorithm_name="Arbol de decision para regresion",
+        dataset_name=dataset["dataset_name"],
+        dataset_reason=(
+            "Se usa la misma muestra de California Housing que en SVR para "
+            "comparar ambos algoritmos sobre los mismos datos de entrada y "
+            "la misma variable objetivo."
+        ),
+        metrics=metrics,
+        graph_path=graph_path,
+        output_filename="arbol_decision_regresion_california_housing.txt",
+        dataset_info=dataset,
+        transformation_info=(
+            "Se usa una muestra fija de 5.000 registros con random_state=42. "
+            "El arbol se limita a max_depth=5 para reducir el sobreajuste. "
+            "No se aplica escalado porque los arboles toman decisiones "
+            "mediante cortes sobre cada variable individual."
+        ),
+        interpretation=(
+            "El arbol divide los datos en grupos mediante reglas sucesivas "
+            "y asigna una prediccion numerica a cada grupo final. Limitar su "
+            "profundidad evita que memorice demasiados detalles de los datos "
+            "de entrenamiento, aunque tambien puede restringir su precision."
         ),
     )
 

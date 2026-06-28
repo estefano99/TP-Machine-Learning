@@ -35,7 +35,7 @@ Se usa una muestra fija de 5.000 registros para reducir el tiempo de entrenamien
 
 `data/loaders.py`
 
-- Agrega `load_california_housing_svr()`.
+- Agrega `load_california_housing_sample()`.
 - Carga California Housing y obtiene una muestra reproducible.
 - Devuelve `X`, `y`, el DataFrame y la informacion necesaria para mostrarlo.
 
