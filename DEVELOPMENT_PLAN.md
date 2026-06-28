@@ -23,6 +23,7 @@ Cada algoritmo debe:
 - Mantener una arquitectura simple y modular.
 - Evitar dependencias externas innecesarias.
 - Mostrar solo las primeras 5 filas del dataset para no ensuciar la consola.
+- En algoritmos con transformaciones, mostrar tambien una vista previa chica del dataset transformado.
 - Usar `random_state=42` para resultados reproducibles.
 - Guardar graficos en `tp_machine_learning/outputs/graphs/`.
 - Guardar informes en `tp_machine_learning/outputs/reports/`.
@@ -113,8 +114,8 @@ Algoritmos de regresion:
 
 - [x] Regresion lineal simple.
 - [x] Regresion lineal multiple.
-- [ ] Regresion polinomial.
-- [ ] SVR, regresion con vectores de soporte.
+- [x] Regresion polinomial.
+- [x] SVR, regresion con vectores de soporte.
 - [ ] Arbol de decision para regresion.
 - [ ] Bosque aleatorio para regresion.
 
@@ -135,6 +136,8 @@ Ya implementado:
 
 - Grafico para regresion lineal simple.
 - Grafico de valores reales vs valores predichos para regresion multiple.
+- Grafico de curva para regresion polinomial.
+- Grafico de valores reales vs valores predichos para SVR.
 - Informes con:
   - Algoritmo.
   - Dataset.
@@ -150,6 +153,8 @@ Informes manuales generados:
 
 - `manual_algoritmos/01_regresion_lineal_simple.md`.
 - `manual_algoritmos/02_regresion_lineal_multiple.md`.
+- `manual_algoritmos/03_regresion_polinomial.md`.
+- `manual_algoritmos/04_svr_regresion.md`.
 
 Pendiente:
 
@@ -195,9 +200,9 @@ Motivo:
 
 ### Regresion polinomial
 
-Estado: pendiente.
+Estado: implementado.
 
-Dataset propuesto:
+Dataset:
 
 - `Diabetes`, usando `bmi`.
 
@@ -207,15 +212,22 @@ Motivo:
 
 ### SVR
 
-Estado: pendiente.
+Estado: implementado.
 
-Dataset propuesto:
+Dataset:
 
-- `Diabetes`.
+- `California Housing`, usando una muestra fija de 5.000 registros.
 
 Motivo:
 
-- Es liviano y evita tiempos de entrenamiento largos.
+- Contiene multiples variables numericas relacionadas con el valor de las viviendas.
+- Permite aplicar SVR a un problema de regresion con relaciones no lineales.
+
+Decisiones tecnicas:
+
+- La muestra se obtiene con `random_state=42` para mantener reproducibilidad.
+- Se usa `Pipeline` con `StandardScaler` y `SVR(kernel="rbf")`.
+- El escalado queda encapsulado junto al modelo y se aplica correctamente al entrenar y predecir.
 
 ### Arbol de decision para regresion
 
@@ -341,20 +353,22 @@ Opciones completas:
 
 - `1. Regresion lineal simple`.
 - `2. Regresion lineal multiple`.
+- `3. Regresion polinomial`.
+- `4. SVR - Regresion con vectores de soporte`.
 
 Opciones pendientes:
 
-- `3` a `12`.
+- `5` a `12`.
 
 ## Proxima tarea recomendada
 
-Implementar `3. Regresion polinomial` usando `Diabetes` con la variable `bmi`.
+Implementar `5. Arbol de decision - Regresion`.
 
 La implementacion deberia:
 
-- Reutilizar el loader simple de Diabetes o crear uno especifico si hace falta.
-- Usar `PolynomialFeatures`.
-- Usar `LinearRegression`.
+- Definir si se usara `Diabetes` o la misma muestra de `California Housing`.
+- Usar `DecisionTreeRegressor` con `random_state=42`.
 - Calcular las mismas metricas de regresion.
-- Generar grafico de puntos reales y curva polinomial.
+- Generar grafico de valores reales vs predichos.
 - Guardar informe con interpretacion especifica.
+- Crear informe manual en `manual_algoritmos/05_arbol_decision_regresion.md`.

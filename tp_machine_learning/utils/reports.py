@@ -22,6 +22,7 @@ def save_algorithm_report(
     graph_path,
     output_filename,
     dataset_info=None,
+    transformation_info=None,
     interpretation=None,
 ):
     """Guarda un informe simple en texto plano."""
@@ -45,6 +46,15 @@ def save_algorithm_report(
                 f"- Columnas: {dataset_info['columns']}",
                 f"- Variables de entrada: {', '.join(dataset_info['features'])}",
                 f"- Variable objetivo: {dataset_info['target_name']}",
+                "",
+            ]
+        )
+
+    if transformation_info:
+        lines.extend(
+            [
+                "Transformacion aplicada:",
+                transformation_info,
                 "",
             ]
         )

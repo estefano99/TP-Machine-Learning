@@ -85,6 +85,9 @@ Ya se implemento:
 - Validacion de opciones invalidas.
 - Primer algoritmo completo: regresion lineal simple con dataset `Diabetes`.
 - Segundo algoritmo completo: regresion lineal multiple con dataset `Diabetes`.
+- Tercer algoritmo completo: regresion polinomial con dataset `Diabetes`.
+- Cuarto algoritmo completo: SVR con una muestra reproducible de `California Housing`.
+- Pipeline de `StandardScaler` y `SVR` para aplicar el escalado correctamente.
 - Vista previa del dataset en consola antes de entrenar cada modelo.
 - Calculo de metricas de regresion:
   - MAE
@@ -113,6 +116,8 @@ Luego elegir una opcion del menu. Por ahora, las opciones completas son:
 ```text
 1. Regresion lineal simple
 2. Regresion lineal multiple
+3. Regresion polinomial
+4. SVR - Regresion con vectores de soporte
 ```
 
 ## Etapas de desarrollo

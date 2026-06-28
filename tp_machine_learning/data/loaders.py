@@ -1,6 +1,6 @@
 """Funciones para cargar datasets del proyecto."""
 
-from sklearn.datasets import load_diabetes
+from sklearn.datasets import fetch_california_housing, load_diabetes
 
 
 def load_diabetes_simple_regression():
@@ -46,6 +46,34 @@ def load_diabetes_multiple_regression():
         "rows": dataframe.shape[0],
         "columns": dataframe.shape[1],
         "preview_rows": 5,
+        "x": x,
+        "y": y,
+    }
+
+# sample_size=5000 limita a 5000 filas para que el entrenamiento sea mas rapido, ya que SVR es costoso computacionalmente
+# random_state=42 siempre la misma muestra
+def load_california_housing_svr(sample_size=5000, random_state=42):
+    """Carga una muestra reproducible de California Housing para SVR."""
+    california = fetch_california_housing(as_frame=True)
+    target_name = california.target.name
+
+    dataframe = california.frame.sample(
+        n=sample_size,
+        random_state=random_state,
+    ).reset_index(drop=True)
+    x = dataframe[california.feature_names]
+    y = dataframe[target_name]
+
+    return {
+        "dataset_name": "California Housing",
+        "target_name": target_name,
+        "dataframe": dataframe,
+        "features": list(x.columns),
+        "rows": dataframe.shape[0],
+        "columns": dataframe.shape[1],
+        "preview_rows": 5,
+        "sample_size": sample_size,
+        "sample_random_state": random_state,
         "x": x,
         "y": y,
     }

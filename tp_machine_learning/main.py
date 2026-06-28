@@ -1,6 +1,11 @@
 """Menu principal del TP de Machine Learning."""
 
-from models.regression import run_multiple_linear_regression, run_simple_linear_regression
+from models.regression import (
+    run_multiple_linear_regression,
+    run_polynomial_regression,
+    run_simple_linear_regression,
+    run_svr_regression,
+)
 
 
 MENU_OPTIONS = {
@@ -50,6 +55,10 @@ def handle_option(option):
         run_simple_linear_regression()
     elif option == "2":
         run_multiple_linear_regression()
+    elif option == "3":
+        run_polynomial_regression()
+    elif option == "4":
+        run_svr_regression()
     else:
         print("Funcion en desarrollo.")
 
