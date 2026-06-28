@@ -1,5 +1,6 @@
 """Algoritmos de regresion del TP."""
 
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
@@ -356,6 +357,79 @@ def run_decision_tree_regression():
             "y asigna una prediccion numerica a cada grupo final. Limitar su "
             "profundidad evita que memorice demasiados detalles de los datos "
             "de entrenamiento, aunque tambien puede restringir su precision."
+        ),
+    )
+
+    print(f"\nGrafico guardado en: {graph_path}")
+    print(f"Informe guardado en: {report_path}")
+
+
+def run_random_forest_regression():
+    """Ejecuta un bosque aleatorio con California Housing."""
+    dataset = load_california_housing_sample(sample_size=5000, random_state=42)
+    x = dataset["x"]
+    y = dataset["y"]
+    number_of_trees = 100
+
+    x_train, x_test, y_train, y_test = train_test_split(
+        x,
+        y,
+        test_size=0.2,
+        random_state=42,
+    )
+
+    model = RandomForestRegressor(
+        n_estimators=number_of_trees,
+        random_state=42,
+        n_jobs=-1,
+    )
+    model.fit(x_train, y_train)
+
+    y_pred = model.predict(x_test)
+    metrics = calculate_regression_metrics(y_test, y_pred)
+
+    print("\nResultados - Bosque aleatorio para regresion")
+    print(f"Dataset: {dataset['dataset_name']}")
+    print(f"Variable objetivo: {dataset['target_name']}")
+    print(
+        "Muestra: "
+        f"{dataset['sample_size']} registros "
+        f"(random_state={dataset['sample_random_state']})"
+    )
+    print(f"Cantidad de arboles: {number_of_trees}")
+    print_dataset_preview(dataset)
+    print_regression_metrics(metrics)
+
+    graph_path = save_real_vs_predicted_plot(
+        y_test=y_test,
+        y_pred=y_pred,
+        title="Bosque aleatorio - California Housing",
+        output_filename="bosque_aleatorio_regresion_california_housing.png",
+    )
+
+    report_path = save_algorithm_report(
+        algorithm_name="Bosque aleatorio para regresion",
+        dataset_name=dataset["dataset_name"],
+        dataset_reason=(
+            "Se usa la misma muestra de California Housing que en SVR y el "
+            "arbol de decision para comparar los tres algoritmos sobre los "
+            "mismos datos."
+        ),
+        metrics=metrics,
+        graph_path=graph_path,
+        output_filename="bosque_aleatorio_regresion_california_housing.txt",
+        dataset_info=dataset,
+        transformation_info=(
+            "Se usa una muestra fija de 5.000 registros con random_state=42. "
+            "El modelo combina 100 arboles y usa random_state=42 para "
+            "mantener resultados reproducibles. No se aplica escalado porque "
+            "los arboles toman decisiones mediante cortes sobre cada variable."
+        ),
+        interpretation=(
+            "El bosque aleatorio entrena varios arboles con diferentes "
+            "muestras y subconjuntos de variables. La prediccion final es el "
+            "promedio de sus resultados, lo que normalmente reduce el "
+            "sobreajuste y la variabilidad de un unico arbol de decision."
         ),
     )
 

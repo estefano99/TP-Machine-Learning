@@ -117,7 +117,7 @@ Algoritmos de regresion:
 - [x] Regresion polinomial.
 - [x] SVR, regresion con vectores de soporte.
 - [x] Arbol de decision para regresion.
-- [ ] Bosque aleatorio para regresion.
+- [x] Bosque aleatorio para regresion.
 
 Algoritmos de clasificacion:
 
@@ -139,6 +139,7 @@ Ya implementado:
 - Grafico de curva para regresion polinomial.
 - Grafico de valores reales vs valores predichos para SVR.
 - Grafico de valores reales vs valores predichos para arbol de decision.
+- Grafico de valores reales vs valores predichos para bosque aleatorio.
 - Informes con:
   - Algoritmo.
   - Dataset.
@@ -157,6 +158,7 @@ Informes manuales generados:
 - `manual_algoritmos/03_regresion_polinomial.md`.
 - `manual_algoritmos/04_svr_regresion.md`.
 - `manual_algoritmos/05_arbol_decision_regresion.md`.
+- `manual_algoritmos/06_bosque_aleatorio_regresion.md`.
 
 Pendiente:
 
@@ -252,15 +254,21 @@ Decisiones tecnicas:
 
 ### Bosque aleatorio para regresion
 
-Estado: pendiente.
+Estado: implementado.
 
-Dataset propuesto:
+Dataset:
 
-- `Diabetes` o `California Housing`.
+- `California Housing`, usando la misma muestra fija de 5.000 registros.
 
-Decision sugerida:
+Motivo:
 
-- Usar el mismo dataset que el arbol de decision para poder comparar resultados.
+- Permite comparar directamente un bosque de 100 arboles contra el arbol individual y SVR.
+
+Decisiones tecnicas:
+
+- Se usa `RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)`.
+- No se aplica escalado porque los arboles no dependen de distancias entre variables.
+- `n_jobs=-1` permite utilizar los nucleos disponibles para entrenar los arboles.
 
 ### Regresion logistica
 
@@ -364,20 +372,22 @@ Opciones completas:
 - `3. Regresion polinomial`.
 - `4. SVR - Regresion con vectores de soporte`.
 - `5. Arbol de decision - Regresion`.
+- `6. Bosque aleatorio - Regresion`.
 
 Opciones pendientes:
 
-- `6` a `12`.
+- `7` a `12`.
 
 ## Proxima tarea recomendada
 
-Implementar `6. Bosque aleatorio - Regresion`.
+Implementar `7. Regresion logistica`.
 
 La implementacion deberia:
 
-- Reutilizar la misma muestra de `California Housing` para comparar resultados.
-- Usar `RandomForestRegressor` con `random_state=42`.
-- Calcular las mismas metricas de regresion.
-- Generar grafico de valores reales vs predichos.
+- Cargar el dataset `Breast Cancer`.
+- Crear las funciones comunes de metricas para clasificacion.
+- Usar `LogisticRegression` con escalado mediante `Pipeline`.
+- Calcular `accuracy`, `precision`, `recall` y `f1-score`.
+- Generar una matriz de confusion.
 - Guardar informe con interpretacion especifica.
-- Crear informe manual en `manual_algoritmos/06_bosque_aleatorio_regresion.md`.
+- Crear informe manual en `manual_algoritmos/07_regresion_logistica.md`.

@@ -4,6 +4,7 @@ from models.regression import (
     run_decision_tree_regression,
     run_multiple_linear_regression,
     run_polynomial_regression,
+    run_random_forest_regression,
     run_simple_linear_regression,
     run_svr_regression,
 )
@@ -62,6 +63,8 @@ def handle_option(option):
         run_svr_regression()
     elif option == "5":
         run_decision_tree_regression()
+    elif option == "6":
+        run_random_forest_regression()
     else:
         print("Funcion en desarrollo.")
 

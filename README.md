@@ -89,6 +89,7 @@ Ya se implemento:
 - Cuarto algoritmo completo: SVR con una muestra reproducible de `California Housing`.
 - Pipeline de `StandardScaler` y `SVR` para aplicar el escalado correctamente.
 - Quinto algoritmo completo: arbol de decision para regresion con `California Housing`.
+- Sexto algoritmo completo: bosque aleatorio para regresion con `California Housing`.
 - Vista previa del dataset en consola antes de entrenar cada modelo.
 - Calculo de metricas de regresion:
   - MAE
@@ -120,6 +121,7 @@ Luego elegir una opcion del menu. Por ahora, las opciones completas son:
 3. Regresion polinomial
 4. SVR - Regresion con vectores de soporte
 5. Arbol de decision - Regresion
+6. Bosque aleatorio - Regresion
 ```
 
 ## Etapas de desarrollo
