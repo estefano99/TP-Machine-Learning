@@ -1,6 +1,6 @@
 """Funciones para cargar datasets del proyecto."""
 
-from sklearn.datasets import fetch_california_housing, load_diabetes
+from sklearn.datasets import fetch_california_housing, load_breast_cancer, load_diabetes
 
 
 def load_diabetes_simple_regression():
@@ -74,6 +74,31 @@ def load_california_housing_sample(sample_size=5000, random_state=42):
         "preview_rows": 5,
         "sample_size": sample_size,
         "sample_random_state": random_state,
+        "x": x,
+        "y": y,
+    }
+
+
+def load_breast_cancer_classification():
+    """Carga Breast Cancer para un problema de clasificacion binaria."""
+    cancer = load_breast_cancer(as_frame=True)
+    target_name = cancer.target.name
+    x = cancer.data
+    y = cancer.target
+    dataframe = x.copy()
+    dataframe[target_name] = y
+
+    return {
+        "dataset_name": "Breast Cancer Wisconsin",
+        "target_name": target_name,
+        "target_names": list(cancer.target_names),
+        "positive_label": 0,
+        "positive_class_name": cancer.target_names[0],
+        "dataframe": dataframe,
+        "features": list(x.columns),
+        "rows": dataframe.shape[0],
+        "columns": dataframe.shape[1],
+        "preview_rows": 5,
         "x": x,
         "y": y,
     }

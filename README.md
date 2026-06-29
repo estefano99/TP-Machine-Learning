@@ -54,6 +54,7 @@ tp_machine_learning/
     loaders.py
 
   models/
+    classification.py
     regression.py
 
   utils/
@@ -90,6 +91,8 @@ Ya se implemento:
 - Pipeline de `StandardScaler` y `SVR` para aplicar el escalado correctamente.
 - Quinto algoritmo completo: arbol de decision para regresion con `California Housing`.
 - Sexto algoritmo completo: bosque aleatorio para regresion con `California Housing`.
+- Primer algoritmo de clasificacion: regresion logistica con `Breast Cancer`.
+- Metricas de clasificacion y heatmap de matriz de confusion.
 - Vista previa del dataset en consola antes de entrenar cada modelo.
 - Calculo de metricas de regresion:
   - MAE
@@ -122,6 +125,7 @@ Luego elegir una opcion del menu. Por ahora, las opciones completas son:
 4. SVR - Regresion con vectores de soporte
 5. Arbol de decision - Regresion
 6. Bosque aleatorio - Regresion
+7. Regresion logistica
 ```
 
 ## Etapas de desarrollo

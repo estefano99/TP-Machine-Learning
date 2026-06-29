@@ -1,5 +1,6 @@
 """Menu principal del TP de Machine Learning."""
 
+from models.classification import run_logistic_regression
 from models.regression import (
     run_decision_tree_regression,
     run_multiple_linear_regression,
@@ -65,6 +66,8 @@ def handle_option(option):
         run_decision_tree_regression()
     elif option == "6":
         run_random_forest_regression()
+    elif option == "7":
+        run_logistic_regression()
     else:
         print("Funcion en desarrollo.")
 

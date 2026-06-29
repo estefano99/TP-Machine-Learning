@@ -41,6 +41,7 @@ tp_machine_learning/
     loaders.py
 
   models/
+    classification.py
     regression.py
 
   utils/
@@ -91,7 +92,7 @@ Incluye:
 
 ### Etapa 3: Reutilizacion de funciones comunes
 
-Estado: iniciada.
+Estado: completada.
 
 Ya existen funciones comunes para:
 
@@ -99,12 +100,9 @@ Ya existen funciones comunes para:
 - Metricas de regresion: `utils/metrics.py`.
 - Graficos: `utils/plots.py`.
 - Informes: `utils/reports.py`.
-
-Pendiente:
-
-- Agregar metricas comunes de clasificacion.
-- Agregar graficos comunes de clasificacion.
-- Crear `models/classification.py`.
+- Metricas de clasificacion: `utils/metrics.py`.
+- Matriz de confusion: `utils/plots.py`.
+- Algoritmos de clasificacion: `models/classification.py`.
 
 ### Etapa 4: Agregar el resto de algoritmos
 
@@ -121,7 +119,7 @@ Algoritmos de regresion:
 
 Algoritmos de clasificacion:
 
-- [ ] Regresion logistica.
+- [x] Regresion logistica.
 - [ ] K vecinos mas cercanos, KNN.
 - [ ] SVM para clasificacion.
 - [ ] Naive Bayes.
@@ -140,6 +138,7 @@ Ya implementado:
 - Grafico de valores reales vs valores predichos para SVR.
 - Grafico de valores reales vs valores predichos para arbol de decision.
 - Grafico de valores reales vs valores predichos para bosque aleatorio.
+- Heatmap de matriz de confusion para regresion logistica.
 - Informes con:
   - Algoritmo.
   - Dataset.
@@ -159,11 +158,10 @@ Informes manuales generados:
 - `manual_algoritmos/04_svr_regresion.md`.
 - `manual_algoritmos/05_arbol_decision_regresion.md`.
 - `manual_algoritmos/06_bosque_aleatorio_regresion.md`.
+- `manual_algoritmos/07_regresion_logistica.md`.
 
 Pendiente:
 
-- Matriz de confusion para clasificacion.
-- Heatmap de matriz de confusion.
 - Interpretaciones especificas para cada algoritmo.
 
 ## Algoritmos y datasets definidos
@@ -272,15 +270,22 @@ Decisiones tecnicas:
 
 ### Regresion logistica
 
-Estado: pendiente.
+Estado: implementado.
 
-Dataset propuesto:
+Dataset:
 
 - `Breast Cancer`.
 
 Motivo:
 
 - Es un problema de clasificacion binaria claro y viene incluido en `scikit-learn`.
+
+Decisiones tecnicas:
+
+- Se usa division estratificada con `random_state=42`.
+- Se usa un `Pipeline` con `StandardScaler` y `LogisticRegression`.
+- Se considera `malignant` (`0`) como clase positiva para `precision`, `recall` y `F1-score`.
+- Se genera una matriz de confusion con las clases `malignant` y `benign`.
 
 ### KNN
 
@@ -355,7 +360,7 @@ Metricas usadas:
 
 ### Clasificacion
 
-Metricas pendientes de implementar:
+Metricas usadas:
 
 - `accuracy`.
 - `precision`.
@@ -373,21 +378,22 @@ Opciones completas:
 - `4. SVR - Regresion con vectores de soporte`.
 - `5. Arbol de decision - Regresion`.
 - `6. Bosque aleatorio - Regresion`.
+- `7. Regresion logistica`.
 
 Opciones pendientes:
 
-- `7` a `12`.
+- `8` a `12`.
 
 ## Proxima tarea recomendada
 
-Implementar `7. Regresion logistica`.
+Implementar `8. K vecinos mas cercanos (KNN)`.
 
 La implementacion deberia:
 
-- Cargar el dataset `Breast Cancer`.
-- Crear las funciones comunes de metricas para clasificacion.
-- Usar `LogisticRegression` con escalado mediante `Pipeline`.
+- Cargar el dataset `Iris`.
+- Usar `KNeighborsClassifier` con escalado mediante `Pipeline`.
+- Adaptar las metricas comunes para clasificacion multiclase.
 - Calcular `accuracy`, `precision`, `recall` y `f1-score`.
-- Generar una matriz de confusion.
+- Generar una matriz de confusion con las tres especies.
 - Guardar informe con interpretacion especifica.
-- Crear informe manual en `manual_algoritmos/07_regresion_logistica.md`.
+- Crear informe manual en `manual_algoritmos/08_knn_clasificacion.md`.

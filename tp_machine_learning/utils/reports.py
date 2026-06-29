@@ -11,6 +11,10 @@ METRIC_DESCRIPTIONS = {
     "MSE": "Error cuadratico medio. Penaliza mas los errores grandes porque eleva los errores al cuadrado.",
     "RMSE": "Raiz del error cuadratico medio. Mide el error promedio en una escala similar a la variable objetivo.",
     "R2": "Coeficiente de determinacion. Indica que tan bien el modelo explica los datos; mientras mas cerca de 1, mejor.",
+    "Accuracy": "Proporcion total de predicciones correctas. Mientras mas cerca de 1, mejor.",
+    "Precision": "De los casos predichos como positivos, indica cuantos eran realmente positivos.",
+    "Recall": "De los casos positivos reales, indica cuantos fueron detectados correctamente.",
+    "F1-score": "Promedio armonico entre precision y recall. Mientras mas cerca de 1, mejor.",
 }
 
 

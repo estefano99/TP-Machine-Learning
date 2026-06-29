@@ -4,6 +4,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -107,6 +108,30 @@ def save_real_vs_predicted_plot(y_test, y_pred, title, output_filename):
     plt.xlabel("Valores reales")
     plt.ylabel("Valores predichos")
     plt.legend()
+    plt.tight_layout()
+    plt.savefig(output_path)
+    plt.close()
+
+    return output_path
+
+
+def save_confusion_matrix_plot(matrix, class_names, title, output_filename):
+    """Guarda un heatmap con la matriz de confusion."""
+    GRAPHS_DIR.mkdir(parents=True, exist_ok=True)
+    output_path = GRAPHS_DIR / output_filename
+
+    plt.figure(figsize=(7, 5))
+    sns.heatmap(
+        matrix,
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=class_names,
+        yticklabels=class_names,
+    )
+    plt.title(title)
+    plt.xlabel("Clase predicha")
+    plt.ylabel("Clase real")
     plt.tight_layout()
     plt.savefig(output_path)
     plt.close()
