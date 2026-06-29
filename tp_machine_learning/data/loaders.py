@@ -1,6 +1,11 @@
 """Funciones para cargar datasets del proyecto."""
 
-from sklearn.datasets import fetch_california_housing, load_breast_cancer, load_diabetes
+from sklearn.datasets import (
+    fetch_california_housing,
+    load_breast_cancer,
+    load_diabetes,
+    load_iris,
+)
 
 
 def load_diabetes_simple_regression():
@@ -94,6 +99,30 @@ def load_breast_cancer_classification():
         "target_names": list(cancer.target_names),
         "positive_label": 0,
         "positive_class_name": cancer.target_names[0],
+        "dataframe": dataframe,
+        "features": list(x.columns),
+        "rows": dataframe.shape[0],
+        "columns": dataframe.shape[1],
+        "preview_rows": 5,
+        "x": x,
+        "y": y,
+    }
+
+
+def load_iris_classification():
+    """Carga Iris para un problema de clasificacion multiclase."""
+    iris = load_iris(as_frame=True)
+    target_name = iris.target.name
+    x = iris.data
+    y = iris.target
+    dataframe = x.copy()
+    dataframe[target_name] = y
+
+    return {
+        "dataset_name": "Iris",
+        "target_name": target_name,
+        "target_names": list(iris.target_names),
+        "class_labels": [0, 1, 2],
         "dataframe": dataframe,
         "features": list(x.columns),
         "rows": dataframe.shape[0],

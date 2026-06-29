@@ -33,15 +33,25 @@ def print_regression_metrics(metrics):
     print(f"R2: {metrics['R2']:.4f}")
 
 
-def calculate_classification_metrics(y_true, y_pred, positive_label=1):
-    """Calcula metricas para una clasificacion binaria."""
+def calculate_classification_metrics(
+    y_true,
+    y_pred,
+    average="binary",
+    positive_label=1,
+    labels=None,
+):
+    """Calcula metricas para clasificacion binaria o multiclase."""
+    score_options = {"average": average, "zero_division": 0}
+    if average == "binary":
+        score_options["pos_label"] = positive_label
+
     metrics = {
         "Accuracy": accuracy_score(y_true, y_pred),
-        "Precision": precision_score(y_true, y_pred, pos_label=positive_label),
-        "Recall": recall_score(y_true, y_pred, pos_label=positive_label),
-        "F1-score": f1_score(y_true, y_pred, pos_label=positive_label),
+        "Precision": precision_score(y_true, y_pred, **score_options),
+        "Recall": recall_score(y_true, y_pred, **score_options),
+        "F1-score": f1_score(y_true, y_pred, **score_options),
     }
-    matrix = confusion_matrix(y_true, y_pred, labels=[0, 1])
+    matrix = confusion_matrix(y_true, y_pred, labels=labels)
 
     return metrics, matrix
 
@@ -53,5 +63,9 @@ def print_classification_metrics(metrics, matrix, class_names):
         print(f"{metric_name}: {metric_value:.4f}")
 
     print("\nMatriz de confusion")
-    print(f"Orden de clases: 0={class_names[0]}, 1={class_names[1]}")
+    class_order = ", ".join(
+        f"{class_index}={class_name}"
+        for class_index, class_name in enumerate(class_names)
+    )
+    print(f"Orden de clases: {class_order}")
     print(matrix)

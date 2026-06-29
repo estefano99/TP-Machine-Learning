@@ -93,6 +93,8 @@ Ya se implemento:
 - Sexto algoritmo completo: bosque aleatorio para regresion con `California Housing`.
 - Primer algoritmo de clasificacion: regresion logistica con `Breast Cancer`.
 - Metricas de clasificacion y heatmap de matriz de confusion.
+- Segundo algoritmo de clasificacion: KNN con el dataset `Iris`.
+- Soporte para metricas y matrices de confusion multiclase.
 - Vista previa del dataset en consola antes de entrenar cada modelo.
 - Calculo de metricas de regresion:
   - MAE
@@ -126,6 +128,7 @@ Luego elegir una opcion del menu. Por ahora, las opciones completas son:
 5. Arbol de decision - Regresion
 6. Bosque aleatorio - Regresion
 7. Regresion logistica
+8. K vecinos mas cercanos (KNN)
 ```
 
 ## Etapas de desarrollo

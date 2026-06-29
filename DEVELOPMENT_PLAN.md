@@ -120,7 +120,7 @@ Algoritmos de regresion:
 Algoritmos de clasificacion:
 
 - [x] Regresion logistica.
-- [ ] K vecinos mas cercanos, KNN.
+- [x] K vecinos mas cercanos, KNN.
 - [ ] SVM para clasificacion.
 - [ ] Naive Bayes.
 - [ ] Arbol de decision para clasificacion.
@@ -139,6 +139,7 @@ Ya implementado:
 - Grafico de valores reales vs valores predichos para arbol de decision.
 - Grafico de valores reales vs valores predichos para bosque aleatorio.
 - Heatmap de matriz de confusion para regresion logistica.
+- Heatmap de matriz de confusion multiclase para KNN.
 - Informes con:
   - Algoritmo.
   - Dataset.
@@ -159,6 +160,7 @@ Informes manuales generados:
 - `manual_algoritmos/05_arbol_decision_regresion.md`.
 - `manual_algoritmos/06_bosque_aleatorio_regresion.md`.
 - `manual_algoritmos/07_regresion_logistica.md`.
+- `manual_algoritmos/08_knn_clasificacion.md`.
 
 Pendiente:
 
@@ -289,15 +291,22 @@ Decisiones tecnicas:
 
 ### KNN
 
-Estado: pendiente.
+Estado: implementado.
 
-Dataset propuesto:
+Dataset:
 
 - `Iris`.
 
 Motivo:
 
 - Dataset chico y didactico para clasificacion multiclase.
+
+Decisiones tecnicas:
+
+- Se usa division estratificada con `random_state=42`.
+- Se usa `Pipeline` con `StandardScaler` y `KNeighborsClassifier(n_neighbors=5)`.
+- `precision`, `recall` y `F1-score` usan promedio ponderado para resumir las tres clases.
+- Se genera una matriz de confusion para `setosa`, `versicolor` y `virginica`.
 
 ### SVM para clasificacion
 
@@ -379,21 +388,21 @@ Opciones completas:
 - `5. Arbol de decision - Regresion`.
 - `6. Bosque aleatorio - Regresion`.
 - `7. Regresion logistica`.
+- `8. K vecinos mas cercanos (KNN)`.
 
 Opciones pendientes:
 
-- `8` a `12`.
+- `9` a `12`.
 
 ## Proxima tarea recomendada
 
-Implementar `8. K vecinos mas cercanos (KNN)`.
+Implementar `9. SVM - Clasificacion`.
 
 La implementacion deberia:
 
-- Cargar el dataset `Iris`.
-- Usar `KNeighborsClassifier` con escalado mediante `Pipeline`.
-- Adaptar las metricas comunes para clasificacion multiclase.
-- Calcular `accuracy`, `precision`, `recall` y `f1-score`.
-- Generar una matriz de confusion con las tres especies.
+- Reutilizar el dataset `Breast Cancer`.
+- Usar `SVC` con escalado mediante `Pipeline`.
+- Mantener `malignant` como clase positiva.
+- Calcular las metricas de clasificacion y la matriz de confusion.
 - Guardar informe con interpretacion especifica.
-- Crear informe manual en `manual_algoritmos/08_knn_clasificacion.md`.
+- Crear informe manual en `manual_algoritmos/09_svm_clasificacion.md`.
