@@ -123,7 +123,7 @@ Algoritmos de clasificacion:
 - [x] K vecinos mas cercanos, KNN.
 - [x] SVM para clasificacion.
 - [x] Naive Bayes.
-- [ ] Arbol de decision para clasificacion.
+- [x] Arbol de decision para clasificacion.
 - [ ] Bosque aleatorio para clasificacion.
 
 ### Etapa 5: Graficos e informes
@@ -142,6 +142,7 @@ Ya implementado:
 - Heatmap de matriz de confusion multiclase para KNN.
 - Heatmap de matriz de confusion para SVM.
 - Heatmap de matriz de confusion multiclase para Naive Bayes.
+- Heatmap de matriz de confusion multiclase para arbol de decision.
 - Informes con:
   - Algoritmo.
   - Dataset.
@@ -165,6 +166,7 @@ Informes manuales generados:
 - `manual_algoritmos/08_knn_clasificacion.md`.
 - `manual_algoritmos/09_svm_clasificacion.md`.
 - `manual_algoritmos/10_naive_bayes.md`.
+- `manual_algoritmos/11_arbol_decision_clasificacion.md`.
 
 Pendiente:
 
@@ -352,15 +354,22 @@ Decisiones tecnicas:
 
 ### Arbol de decision para clasificacion
 
-Estado: pendiente.
+Estado: implementado.
 
-Dataset propuesto:
+Dataset:
 
 - `Iris`.
 
 Motivo:
 
 - Es simple de explicar y permite entender reglas de decision.
+
+Decisiones tecnicas:
+
+- Se usa la misma division estratificada de Iris que en KNN.
+- Se usa `DecisionTreeClassifier(max_depth=3, random_state=42)`.
+- No se aplica escalado porque el arbol toma decisiones mediante cortes por variable.
+- Las metricas multiclase usan promedio ponderado.
 
 ### Bosque aleatorio para clasificacion
 
@@ -409,20 +418,21 @@ Opciones completas:
 - `8. K vecinos mas cercanos (KNN)`.
 - `9. SVM - Clasificacion`.
 - `10. Naive Bayes`.
+- `11. Arbol de decision - Clasificacion`.
 
 Opciones pendientes:
 
-- `11` a `12`.
+- `12. Bosque aleatorio - Clasificacion`.
 
 ## Proxima tarea recomendada
 
-Implementar `11. Arbol de decision - Clasificacion`.
+Implementar `12. Bosque aleatorio - Clasificacion`.
 
 La implementacion deberia:
 
-- Reutilizar el dataset `Iris`.
-- Usar `DecisionTreeClassifier` con `random_state=42`.
+- Reutilizar el dataset `Wine`.
+- Usar `RandomForestClassifier` con `random_state=42`.
 - Calcular metricas multiclase con promedio ponderado.
-- Generar una matriz de confusion con las tres especies.
+- Generar una matriz de confusion con las tres clases.
 - Guardar informe con interpretacion especifica.
-- Crear informe manual en `manual_algoritmos/11_arbol_decision_clasificacion.md`.
+- Crear informe manual en `manual_algoritmos/12_bosque_aleatorio_clasificacion.md`.

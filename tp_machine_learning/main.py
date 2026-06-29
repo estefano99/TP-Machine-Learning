@@ -1,6 +1,7 @@
 """Menu principal del TP de Machine Learning."""
 
 from models.classification import (
+    run_decision_tree_classification,
     run_knn_classification,
     run_logistic_regression,
     run_naive_bayes_classification,
@@ -79,6 +80,8 @@ def handle_option(option):
         run_svm_classification()
     elif option == "10":
         run_naive_bayes_classification()
+    elif option == "11":
+        run_decision_tree_classification()
     else:
         print("Funcion en desarrollo.")
 

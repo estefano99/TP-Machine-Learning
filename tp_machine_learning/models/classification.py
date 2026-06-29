@@ -7,6 +7,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
 
 from data.loaders import (
     load_breast_cancer_classification,
@@ -314,6 +315,83 @@ def run_naive_bayes_classification():
             "partir de las variables quimicas del vino. Supone que las "
             "variables son independientes dentro de cada clase y que siguen "
             "una distribucion aproximadamente normal."
+        ),
+    )
+
+    print(f"\nGrafico guardado en: {graph_path}")
+    print(f"Informe guardado en: {report_path}")
+
+
+def run_decision_tree_classification():
+    """Ejecuta un arbol de decision para clasificacion con Iris."""
+    dataset = load_iris_classification()
+    x = dataset["x"]
+    y = dataset["y"]
+    max_depth = 3
+
+    x_train, x_test, y_train, y_test = train_test_split(
+        x,
+        y,
+        test_size=0.2,
+        random_state=42,
+        stratify=y,
+    )
+
+    model = DecisionTreeClassifier(
+        max_depth=max_depth,
+        random_state=42,
+    )
+    model.fit(x_train, y_train)
+
+    y_pred = model.predict(x_test)
+    metrics, matrix = calculate_classification_metrics(
+        y_true=y_test,
+        y_pred=y_pred,
+        average="weighted",
+        labels=dataset["class_labels"],
+    )
+
+    print("\nResultados - Arbol de decision para clasificacion")
+    print(f"Dataset: {dataset['dataset_name']}")
+    print(f"Variable objetivo: {dataset['target_name']}")
+    print(f"Clases: {', '.join(dataset['target_names'])}")
+    print(f"Profundidad maxima del arbol: {max_depth}")
+    print("Promedio de metricas multiclase: weighted")
+    print_dataset_preview(dataset)
+    print_classification_metrics(metrics, matrix, dataset["target_names"])
+
+    graph_path = save_confusion_matrix_plot(
+        matrix=matrix,
+        class_names=dataset["target_names"],
+        title="Arbol de decision - Iris",
+        output_filename="arbol_decision_clasificacion_iris.png",
+    )
+
+    report_path = save_algorithm_report(
+        algorithm_name="Arbol de decision para clasificacion",
+        dataset_name=dataset["dataset_name"],
+        dataset_reason=(
+            "Se usa Iris porque sus cuatro variables numericas permiten "
+            "crear reglas sencillas para distinguir tres especies y comparar "
+            "el resultado directamente con KNN."
+        ),
+        metrics=metrics,
+        graph_path=graph_path,
+        output_filename="arbol_decision_clasificacion_iris.txt",
+        dataset_info=dataset,
+        transformation_info=(
+            "Se usa una division estratificada con random_state=42. El arbol "
+            "se limita a max_depth=3 para mantener reglas simples y reducir "
+            "el sobreajuste. No se aplica escalado porque el modelo toma "
+            "decisiones mediante cortes sobre cada variable. Precision, "
+            "recall y F1-score usan promedio ponderado. "
+            f"Matriz de confusion: {matrix.tolist()}."
+        ),
+        interpretation=(
+            "El arbol clasifica las flores mediante reglas sucesivas sobre "
+            "las medidas de sepalos y petalos. Limitar la profundidad ayuda "
+            "a que las reglas sean comprensibles y evita memorizar demasiados "
+            "detalles del conjunto de entrenamiento."
         ),
     )
 
