@@ -1,6 +1,10 @@
 """Menu principal del TP de Machine Learning."""
 
-from models.classification import run_knn_classification, run_logistic_regression
+from models.classification import (
+    run_knn_classification,
+    run_logistic_regression,
+    run_svm_classification,
+)
 from models.regression import (
     run_decision_tree_regression,
     run_multiple_linear_regression,
@@ -70,6 +74,8 @@ def handle_option(option):
         run_logistic_regression()
     elif option == "8":
         run_knn_classification()
+    elif option == "9":
+        run_svm_classification()
     else:
         print("Funcion en desarrollo.")
 

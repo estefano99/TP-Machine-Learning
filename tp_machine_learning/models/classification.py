@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
 
 from data.loaders import load_breast_cancer_classification, load_iris_classification
 from utils.dataset_preview import print_dataset_preview
@@ -144,7 +145,7 @@ def run_knn_classification():
         algorithm_name="K vecinos mas cercanos (KNN)",
         dataset_name=dataset["dataset_name"],
         dataset_reason=(
-            "Se usa Iris porque es un dataset pequeño, equilibrado y "
+            "Se usa Iris porque es un dataset pequeno, equilibrado y "
             "didactico que permite practicar clasificacion de tres clases."
         ),
         metrics=metrics,
@@ -161,6 +162,82 @@ def run_knn_classification():
             "KNN clasifica cada flor mediante la votacion de sus cinco "
             "vecinos mas cercanos. El escalado evita que una medida con "
             "valores mayores domine el calculo de las distancias."
+        ),
+    )
+
+    print(f"\nGrafico guardado en: {graph_path}")
+    print(f"Informe guardado en: {report_path}")
+
+
+def run_svm_classification():
+    """Ejecuta SVM para clasificacion con Breast Cancer."""
+    dataset = load_breast_cancer_classification()
+    x = dataset["x"]
+    y = dataset["y"]
+
+    x_train, x_test, y_train, y_test = train_test_split(
+        x,
+        y,
+        test_size=0.2,
+        random_state=42,
+        stratify=y,
+    )
+
+    pipeline = Pipeline(
+        [
+            ("scaler", StandardScaler()),
+            ("model", SVC(kernel="rbf")),
+        ]
+    )
+    pipeline.fit(x_train, y_train)
+
+    y_pred = pipeline.predict(x_test)
+    metrics, matrix = calculate_classification_metrics(
+        y_true=y_test,
+        y_pred=y_pred,
+        positive_label=dataset["positive_label"],
+        labels=[0, 1],
+    )
+
+    print("\nResultados - SVM para clasificacion")
+    print(f"Dataset: {dataset['dataset_name']}")
+    print(f"Variable objetivo: {dataset['target_name']}")
+    print(f"Clases: {', '.join(dataset['target_names'])}")
+    print(f"Clase positiva para las metricas: {dataset['positive_class_name']} (0)")
+    print("Pipeline: StandardScaler -> SVC (kernel rbf)")
+    print_dataset_preview(dataset)
+    print_classification_metrics(metrics, matrix, dataset["target_names"])
+
+    graph_path = save_confusion_matrix_plot(
+        matrix=matrix,
+        class_names=dataset["target_names"],
+        title="SVM - Breast Cancer",
+        output_filename="svm_clasificacion_breast_cancer.png",
+    )
+
+    report_path = save_algorithm_report(
+        algorithm_name="SVM para clasificacion",
+        dataset_name=dataset["dataset_name"],
+        dataset_reason=(
+            "Se usa Breast Cancer porque sus variables numericas son "
+            "adecuadas para SVM y permite comparar el resultado directamente "
+            "con la regresion logistica."
+        ),
+        metrics=metrics,
+        graph_path=graph_path,
+        output_filename="svm_clasificacion_breast_cancer.txt",
+        dataset_info=dataset,
+        transformation_info=(
+            "Se usa una division estratificada con random_state=42. "
+            "StandardScaler y SVC con kernel rbf se integran en un Pipeline. "
+            "Para precision, recall y F1-score se considera malignant (0) "
+            f"como clase positiva. Matriz de confusion: {matrix.tolist()}."
+        ),
+        interpretation=(
+            "SVM busca una frontera que separe tumores malignos y benignos. "
+            "El kernel rbf permite construir una frontera no lineal, mientras "
+            "que el escalado evita que las variables con valores mayores "
+            "dominen el calculo de distancias."
         ),
     )
 

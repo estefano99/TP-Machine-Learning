@@ -95,6 +95,7 @@ Ya se implemento:
 - Metricas de clasificacion y heatmap de matriz de confusion.
 - Segundo algoritmo de clasificacion: KNN con el dataset `Iris`.
 - Soporte para metricas y matrices de confusion multiclase.
+- Tercer algoritmo de clasificacion: SVM con `Breast Cancer`.
 - Vista previa del dataset en consola antes de entrenar cada modelo.
 - Calculo de metricas de regresion:
   - MAE
@@ -129,6 +130,7 @@ Luego elegir una opcion del menu. Por ahora, las opciones completas son:
 6. Bosque aleatorio - Regresion
 7. Regresion logistica
 8. K vecinos mas cercanos (KNN)
+9. SVM - Clasificacion
 ```
 
 ## Etapas de desarrollo

@@ -121,7 +121,7 @@ Algoritmos de clasificacion:
 
 - [x] Regresion logistica.
 - [x] K vecinos mas cercanos, KNN.
-- [ ] SVM para clasificacion.
+- [x] SVM para clasificacion.
 - [ ] Naive Bayes.
 - [ ] Arbol de decision para clasificacion.
 - [ ] Bosque aleatorio para clasificacion.
@@ -140,6 +140,7 @@ Ya implementado:
 - Grafico de valores reales vs valores predichos para bosque aleatorio.
 - Heatmap de matriz de confusion para regresion logistica.
 - Heatmap de matriz de confusion multiclase para KNN.
+- Heatmap de matriz de confusion para SVM.
 - Informes con:
   - Algoritmo.
   - Dataset.
@@ -161,6 +162,7 @@ Informes manuales generados:
 - `manual_algoritmos/06_bosque_aleatorio_regresion.md`.
 - `manual_algoritmos/07_regresion_logistica.md`.
 - `manual_algoritmos/08_knn_clasificacion.md`.
+- `manual_algoritmos/09_svm_clasificacion.md`.
 
 Pendiente:
 
@@ -310,15 +312,22 @@ Decisiones tecnicas:
 
 ### SVM para clasificacion
 
-Estado: pendiente.
+Estado: implementado.
 
-Dataset propuesto:
+Dataset:
 
 - `Breast Cancer`.
 
 Motivo:
 
 - Dataset numerico adecuado para clasificacion binaria.
+
+Decisiones tecnicas:
+
+- Se usa la misma division estratificada de Breast Cancer que en regresion logistica.
+- Se usa `Pipeline` con `StandardScaler` y `SVC(kernel="rbf")`.
+- Se considera `malignant` (`0`) como clase positiva.
+- Se genera una matriz de confusion para comparar directamente ambos modelos.
 
 ### Naive Bayes
 
@@ -389,20 +398,21 @@ Opciones completas:
 - `6. Bosque aleatorio - Regresion`.
 - `7. Regresion logistica`.
 - `8. K vecinos mas cercanos (KNN)`.
+- `9. SVM - Clasificacion`.
 
 Opciones pendientes:
 
-- `9` a `12`.
+- `10` a `12`.
 
 ## Proxima tarea recomendada
 
-Implementar `9. SVM - Clasificacion`.
+Implementar `10. Naive Bayes`.
 
 La implementacion deberia:
 
-- Reutilizar el dataset `Breast Cancer`.
-- Usar `SVC` con escalado mediante `Pipeline`.
-- Mantener `malignant` como clase positiva.
-- Calcular las metricas de clasificacion y la matriz de confusion.
+- Cargar el dataset `Wine`.
+- Usar un modelo de Naive Bayes adecuado para variables numericas.
+- Calcular metricas multiclase con promedio ponderado.
+- Generar una matriz de confusion con las tres clases.
 - Guardar informe con interpretacion especifica.
-- Crear informe manual en `manual_algoritmos/09_svm_clasificacion.md`.
+- Crear informe manual en `manual_algoritmos/10_naive_bayes.md`.
