@@ -122,7 +122,7 @@ Algoritmos de clasificacion:
 - [x] Regresion logistica.
 - [x] K vecinos mas cercanos, KNN.
 - [x] SVM para clasificacion.
-- [ ] Naive Bayes.
+- [x] Naive Bayes.
 - [ ] Arbol de decision para clasificacion.
 - [ ] Bosque aleatorio para clasificacion.
 
@@ -141,6 +141,7 @@ Ya implementado:
 - Heatmap de matriz de confusion para regresion logistica.
 - Heatmap de matriz de confusion multiclase para KNN.
 - Heatmap de matriz de confusion para SVM.
+- Heatmap de matriz de confusion multiclase para Naive Bayes.
 - Informes con:
   - Algoritmo.
   - Dataset.
@@ -163,6 +164,7 @@ Informes manuales generados:
 - `manual_algoritmos/07_regresion_logistica.md`.
 - `manual_algoritmos/08_knn_clasificacion.md`.
 - `manual_algoritmos/09_svm_clasificacion.md`.
+- `manual_algoritmos/10_naive_bayes.md`.
 
 Pendiente:
 
@@ -331,15 +333,22 @@ Decisiones tecnicas:
 
 ### Naive Bayes
 
-Estado: pendiente.
+Estado: implementado.
 
-Dataset propuesto:
+Dataset:
 
 - `Wine`.
 
 Motivo:
 
 - Permite clasificacion multiclase sin entrar todavia en procesamiento de texto.
+
+Decisiones tecnicas:
+
+- Se usa `GaussianNB` porque Wine contiene variables numericas continuas.
+- Se usa division estratificada con `random_state=42`.
+- No se aplica escalado porque el modelo estima media y varianza por clase.
+- Las metricas multiclase usan promedio ponderado.
 
 ### Arbol de decision para clasificacion
 
@@ -399,20 +408,21 @@ Opciones completas:
 - `7. Regresion logistica`.
 - `8. K vecinos mas cercanos (KNN)`.
 - `9. SVM - Clasificacion`.
+- `10. Naive Bayes`.
 
 Opciones pendientes:
 
-- `10` a `12`.
+- `11` a `12`.
 
 ## Proxima tarea recomendada
 
-Implementar `10. Naive Bayes`.
+Implementar `11. Arbol de decision - Clasificacion`.
 
 La implementacion deberia:
 
-- Cargar el dataset `Wine`.
-- Usar un modelo de Naive Bayes adecuado para variables numericas.
+- Reutilizar el dataset `Iris`.
+- Usar `DecisionTreeClassifier` con `random_state=42`.
 - Calcular metricas multiclase con promedio ponderado.
-- Generar una matriz de confusion con las tres clases.
+- Generar una matriz de confusion con las tres especies.
 - Guardar informe con interpretacion especifica.
-- Crear informe manual en `manual_algoritmos/10_naive_bayes.md`.
+- Crear informe manual en `manual_algoritmos/11_arbol_decision_clasificacion.md`.

@@ -5,6 +5,7 @@ from sklearn.datasets import (
     load_breast_cancer,
     load_diabetes,
     load_iris,
+    load_wine,
 )
 
 
@@ -122,6 +123,30 @@ def load_iris_classification():
         "dataset_name": "Iris",
         "target_name": target_name,
         "target_names": list(iris.target_names),
+        "class_labels": [0, 1, 2],
+        "dataframe": dataframe,
+        "features": list(x.columns),
+        "rows": dataframe.shape[0],
+        "columns": dataframe.shape[1],
+        "preview_rows": 5,
+        "x": x,
+        "y": y,
+    }
+
+
+def load_wine_classification():
+    """Carga Wine para un problema de clasificacion multiclase."""
+    wine = load_wine(as_frame=True)
+    target_name = wine.target.name
+    x = wine.data
+    y = wine.target
+    dataframe = x.copy()
+    dataframe[target_name] = y
+
+    return {
+        "dataset_name": "Wine",
+        "target_name": target_name,
+        "target_names": list(wine.target_names),
         "class_labels": [0, 1, 2],
         "dataframe": dataframe,
         "features": list(x.columns),

@@ -96,6 +96,7 @@ Ya se implemento:
 - Segundo algoritmo de clasificacion: KNN con el dataset `Iris`.
 - Soporte para metricas y matrices de confusion multiclase.
 - Tercer algoritmo de clasificacion: SVM con `Breast Cancer`.
+- Cuarto algoritmo de clasificacion: Gaussian Naive Bayes con `Wine`.
 - Vista previa del dataset en consola antes de entrenar cada modelo.
 - Calculo de metricas de regresion:
   - MAE
@@ -131,6 +132,7 @@ Luego elegir una opcion del menu. Por ahora, las opciones completas son:
 7. Regresion logistica
 8. K vecinos mas cercanos (KNN)
 9. SVM - Clasificacion
+10. Naive Bayes
 ```
 
 ## Etapas de desarrollo

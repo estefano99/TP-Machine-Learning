@@ -3,6 +3,7 @@
 from models.classification import (
     run_knn_classification,
     run_logistic_regression,
+    run_naive_bayes_classification,
     run_svm_classification,
 )
 from models.regression import (
@@ -76,6 +77,8 @@ def handle_option(option):
         run_knn_classification()
     elif option == "9":
         run_svm_classification()
+    elif option == "10":
+        run_naive_bayes_classification()
     else:
         print("Funcion en desarrollo.")
 

@@ -2,12 +2,17 @@
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
-from data.loaders import load_breast_cancer_classification, load_iris_classification
+from data.loaders import (
+    load_breast_cancer_classification,
+    load_iris_classification,
+    load_wine_classification,
+)
 from utils.dataset_preview import print_dataset_preview
 from utils.metrics import (
     calculate_classification_metrics,
@@ -238,6 +243,77 @@ def run_svm_classification():
             "El kernel rbf permite construir una frontera no lineal, mientras "
             "que el escalado evita que las variables con valores mayores "
             "dominen el calculo de distancias."
+        ),
+    )
+
+    print(f"\nGrafico guardado en: {graph_path}")
+    print(f"Informe guardado en: {report_path}")
+
+
+def run_naive_bayes_classification():
+    """Ejecuta Gaussian Naive Bayes con el dataset Wine."""
+    dataset = load_wine_classification()
+    x = dataset["x"]
+    y = dataset["y"]
+
+    x_train, x_test, y_train, y_test = train_test_split(
+        x,
+        y,
+        test_size=0.2,
+        random_state=42,
+        stratify=y,
+    )
+
+    model = GaussianNB()
+    model.fit(x_train, y_train)
+
+    y_pred = model.predict(x_test)
+    metrics, matrix = calculate_classification_metrics(
+        y_true=y_test,
+        y_pred=y_pred,
+        average="weighted",
+        labels=dataset["class_labels"],
+    )
+
+    print("\nResultados - Naive Bayes")
+    print(f"Dataset: {dataset['dataset_name']}")
+    print(f"Variable objetivo: {dataset['target_name']}")
+    print(f"Clases: {', '.join(dataset['target_names'])}")
+    print("Modelo: GaussianNB")
+    print("Promedio de metricas multiclase: weighted")
+    print_dataset_preview(dataset)
+    print_classification_metrics(metrics, matrix, dataset["target_names"])
+
+    graph_path = save_confusion_matrix_plot(
+        matrix=matrix,
+        class_names=dataset["target_names"],
+        title="Naive Bayes - Wine",
+        output_filename="naive_bayes_wine.png",
+    )
+
+    report_path = save_algorithm_report(
+        algorithm_name="Naive Bayes Gaussiano",
+        dataset_name=dataset["dataset_name"],
+        dataset_reason=(
+            "Se usa Wine porque contiene variables numericas continuas, "
+            "tres clases y esta incluido en scikit-learn, por lo que es "
+            "adecuado para Gaussian Naive Bayes."
+        ),
+        metrics=metrics,
+        graph_path=graph_path,
+        output_filename="naive_bayes_wine.txt",
+        dataset_info=dataset,
+        transformation_info=(
+            "Se usa una division estratificada con random_state=42. No se "
+            "aplica escalado porque GaussianNB estima la media y la varianza "
+            "de cada variable para cada clase. Precision, recall y F1-score "
+            f"usan promedio ponderado. Matriz de confusion: {matrix.tolist()}."
+        ),
+        interpretation=(
+            "Gaussian Naive Bayes calcula la probabilidad de cada clase a "
+            "partir de las variables quimicas del vino. Supone que las "
+            "variables son independientes dentro de cada clase y que siguen "
+            "una distribucion aproximadamente normal."
         ),
     )
 
